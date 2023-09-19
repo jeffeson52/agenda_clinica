@@ -17,24 +17,23 @@ class UserLoginServiceImpl implements UserLoginService {
     required this.userRepository,
   });
 
-
   @override
-  Future<Either<ServiceException, Nil>> execute(String email, String password) async {
+  Future<Either<ServiceException, Nil>> execute(
+      String email, String password) async {
     final loginResult = await userRepository.login(email, password);
 
-    switch(loginResult){
-      case Success(value:final accessToken): 
+    switch (loginResult) {
+      case Success(value: final accessToken):
         final sp = await SharedPreferences.getInstance();
         sp.setString(LocalStorageKeys.accessToken, accessToken);
         return Success(nil);
       case Failure(:final exception):
-        return switch(exception){
+        return switch (exception) {
           AuthError() =>
             Failure(ServiceException(message: 'Erro ao realizar login')),
-          AuthUnauthorizedException() => 
-          Failure(ServiceException(message: 'Login ou senha inválidos')),
+          AuthUnauthorizedException() =>
+            Failure(ServiceException(message: 'Login ou senha inválidos')),
         };
     }
-  } 
-
+  }
 }

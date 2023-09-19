@@ -3,6 +3,7 @@ import 'package:agenda_clinica/src/core/ui/helpers/form_helper.dart';
 import 'package:agenda_clinica/src/core/ui/helpers/messages.dart';
 import 'package:agenda_clinica/src/features/auth/login/login_state.dart';
 import 'package:agenda_clinica/src/features/auth/login/login_vm.dart';
+import 'package:agenda_clinica/src/teste.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:validatorless/validatorless.dart';
@@ -39,7 +40,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           Messages.showError('Erro ao realizar login', context);
         case LoginState(status: LoginStateStatus.admLogin):
           Navigator.of(context)
-              .pushNamedAndRemoveUntil('/home/adm', (rout) => false);
+              .push(MaterialPageRoute(builder: (context) => const Teste()));
           break;
         case LoginState(status: LoginStateStatus.employeeLogin):
           Navigator.of(context)

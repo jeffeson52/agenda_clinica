@@ -13,39 +13,38 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'application_providers.g.dart';
 
 @Riverpod(keepAlive: true)
-
 RestClient restClient(RestClientRef ref) => RestClient();
 
 @Riverpod(keepAlive: true)
-UserRepository userRepository(UserRepositoryRef ref) => 
-  UserRepositoryImpl(restClient: ref.read(restClientProvider));
+UserRepository userRepository(UserRepositoryRef ref) =>
+    UserRepositoryImpl(restClient: ref.read(restClientProvider));
 
-  @Riverpod(keepAlive: true)
-  UserLoginService userLoginService(UserLoginServiceRef ref) => 
+@Riverpod(keepAlive: true)
+UserLoginService userLoginService(UserLoginServiceRef ref) =>
     UserLoginServiceImpl(userRepository: ref.read(userRepositoryProvider));
 
-  @Riverpod(keepAlive: true)
-  Future<UserModel> getMe(GetMeRef ref) async {
-    final result = await ref.watch(userRepositoryProvider).me();
-
-    return switch (result) {
-      Success(value: final userModel) => userModel,
-      Failure(:final exception) => throw exception,
-    };
-  }
 @Riverpod(keepAlive: true)
-ClinicaRepository clinicaRepository(ClinicaRepositoryRef ref) => 
-  ClinicaRepositoryImpl(restClient: ref.watch(restClientProvider));
+Future<UserModel> getMe(GetMeRef ref) async {
+  final result = await ref.watch(userRepositoryProvider).me();
+
+  return switch (result) {
+    Success(value: final userModel) => userModel,
+    Failure(:final exception) => throw exception,
+  };
+}
 
 @Riverpod(keepAlive: true)
-  Future<ClinicaModel> getMyClinica(GetMyClinicaRef ref) async {
-    final userModel = await ref.watch(getMeProvider.future);
-    final clinicaRepository = ref.watch(clinicaRepositoryProvider);
-    final result = await clinicaRepository.getMyClinica(userModel);
+ClinicaRepository clinicaRepository(ClinicaRepositoryRef ref) =>
+    ClinicaRepositoryImpl(restClient: ref.watch(restClientProvider));
 
-    return switch (result) {
-      Success(value: final clinica) => clinica,
-      Failure(:final exception) => throw exception
-    };
+@Riverpod(keepAlive: true)
+Future<ClinicaModel> getMyClinica(GetMyClinicaRef ref) async {
+  final userModel = await ref.watch(getMeProvider.future);
+  final clinicaRepository = ref.watch(clinicaRepositoryProvider);
+  final result = await clinicaRepository.getMyClinica(userModel);
 
-  }
+  return switch (result) {
+    Success(value: final clinica) => clinica,
+    Failure(:final exception) => throw exception
+  };
+}
