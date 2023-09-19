@@ -8,15 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:validatorless/validatorless.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
-
-  const LoginPage({ super.key });
+  const LoginPage({super.key});
 
   @override
   ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-
   final formKey = GlobalKey<FormState>();
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
@@ -28,12 +26,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.dispose();
   }
 
-   @override
-   Widget build(BuildContext context) {
-
+  @override
+  Widget build(BuildContext context) {
     final LoginVm(:login) = ref.watch(loginVmProvider.notifier);
-    ref.listen(loginVmProvider, (_, state){
-      switch(state){
+    ref.listen(loginVmProvider, (_, state) {
+      switch (state) {
         case LoginState(status: LoginStateStatus.initial):
           break;
         case LoginState(status: LoginStateStatus.error, :final errorMessage?):
@@ -42,114 +39,131 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           Messages.showError('Erro ao realizar login', context);
         case LoginState(status: LoginStateStatus.admLogin):
           Navigator.of(context)
-          .pushNamedAndRemoveUntil('/home/adm', (rout) => false);
+              .pushNamedAndRemoveUntil('/home/adm', (rout) => false);
           break;
         case LoginState(status: LoginStateStatus.employeeLogin):
           Navigator.of(context)
-          .pushNamedAndRemoveUntil('/home/employee', (rout) => false);
+              .pushNamedAndRemoveUntil('/home/employee', (rout) => false);
           break;
-
       }
     });
 
-       return Scaffold(
-          backgroundColor: Colors.black,
-           body: Form(
-            key: formKey,
-             child: DecoratedBox(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    ImageConstants.backgroundChair,
-                  ),
-                  opacity: 0.2,
-                  fit: BoxFit.cover
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Form(
+        key: formKey,
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  ImageConstants.backgroundChair,
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: CustomScrollView(
-                  slivers: [
-                    SliverFillRemaining(
-                      hasScrollBody: false, 
-                      child: Stack(
-                        alignment: Alignment.center,
+                opacity: 0.2,
+                fit: BoxFit.cover),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(ImageConstants.imageLogo),
-                              const SizedBox(
-                                 height: 30,
-                              ),
-                              TextFormField(
-                                onTapOutside: (_) => context.unfocus(),
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Email obrigatorio'),
-                                  Validatorless.email('Email inválido'),
-                                ]),
-                                controller: emailEC,
-                                decoration: const InputDecoration(
-                                  label: Text('E-mail'),
-                                  hintText: 'E-mail', 
-                                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  hintStyle: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                              const SizedBox(
-                                 height: 20,
-                              ),
-                              TextFormField(
-                                onTapOutside: (_) => context.unfocus(),
-                                validator: Validatorless.multiple([
-                                  Validatorless.required('Senha obrigatório'),
-                                  Validatorless.min(6, 'Senha deve conter pelo menos 6 caracteres'),
-                                ]),
-                                obscureText: true,
-                                controller: passwordEC,
-                                decoration: const InputDecoration(
-                                  label: Text('Senha'),
-                                  hintText: 'Senha',
-                                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  hintStyle: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                              const SizedBox(
-                                 height: 16,
-                              ),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text('Esqueceu a senha?', style: TextStyle(color: ColorsConstants.brow, fontSize: 12),),),
-                                const SizedBox(
-                                   height: 24,
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(56),),
-                                  onPressed: () {
-                                    switch(formKey.currentState?.validate()) {
-                                      case (false || null) :
-                                      Messages.showError('Campos Inválidos', context);
-                                      case true:
-                                      login(emailEC.text, passwordEC.text);
-                                    }
-                                  }, child: const Text('ACESSAR'),),
-                            ],
+                          Image.asset(ImageConstants.imageLogo),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          TextFormField(
+                            onTapOutside: (_) => context.unfocus(),
+                            validator: Validatorless.multiple([
+                              Validatorless.required('Email obrigatorio'),
+                              Validatorless.email('Email inválido'),
+                            ]),
+                            controller: emailEC,
+                            decoration: const InputDecoration(
+                              label: Text('E-mail'),
+                              hintText: 'E-mail',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              labelStyle: TextStyle(color: Colors.black),
+                              hintStyle: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            onTapOutside: (_) => context.unfocus(),
+                            validator: Validatorless.multiple([
+                              Validatorless.required('Senha obrigatório'),
+                              Validatorless.min(6,
+                                  'Senha deve conter pelo menos 6 caracteres'),
+                            ]),
+                            obscureText: true,
+                            controller: passwordEC,
+                            decoration: const InputDecoration(
+                              label: Text('Senha'),
+                              hintText: 'Senha',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                              labelStyle: TextStyle(color: Colors.black),
+                              hintStyle: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
                           ),
                           const Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text('Criar Conta', 
-                            style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500,),),
-                          )
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Esqueceu a senha?',
+                              style: TextStyle(
+                                  color: ColorsConstants.brow, fontSize: 12),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(56),
+                            ),
+                            onPressed: () {
+                              switch (formKey.currentState?.validate()) {
+                                case (false || null):
+                                  Messages.showError(
+                                      'Campos Inválidos', context);
+                                case true:
+                                  login(emailEC.text, passwordEC.text);
+                              }
+                            },
+                            child: const Text('ACESSAR'),
+                          ),
                         ],
                       ),
-                    )
-                  ],
-                ),
-              ),
-                     ),
-           ),
-       );
+                      const Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          'Criar Conta',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
