@@ -1,4 +1,5 @@
 
+import 'package:agenda_clinica/src/core/restClient/interceptors/auth_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 
@@ -13,6 +14,7 @@ final class RestClient extends DioForNative {
         requestBody: true,
         responseBody: true,
       ),
+      AuthInterceptor(),
     ]);
   }
 

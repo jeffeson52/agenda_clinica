@@ -56,15 +56,15 @@ class UserModelADM extends UserModel {
 }
 
 class UserModelEmployee extends UserModel {
-  final int agendaClinicaId;
+  final int clinicaId;
   final List<String> workDays;
-  final List<int>? workHours;
+  final List<int> workHours;
 
   UserModelEmployee({
     required super.id,
     required super.name,
     required super.email,
-    required this.agendaClinicaId,
+    required this.clinicaId,
     required this.workDays,
     required this.workHours,
     super.avatar,
@@ -76,7 +76,7 @@ class UserModelEmployee extends UserModel {
         'id' : final int id,
         'name' : final String name,
         'email' : final String email,
-        'agendaClinicaId' : final int agendaClinicaId,
+        'clinica_id' : final int clinicaId,
         'wordk_days' : final List workDays,
         'wordk_hours' : final List workHours,
       } => UserModelEmployee(
@@ -84,7 +84,7 @@ class UserModelEmployee extends UserModel {
         name: name, 
         email: email, 
         avatar: json['avatar'], 
-        agendaClinicaId: agendaClinicaId, 
+        clinicaId: clinicaId, 
         workDays: workDays.cast<String>(),
         workHours: workHours.cast<int>(),
         ),
