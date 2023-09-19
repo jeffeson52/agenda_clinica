@@ -42,6 +42,4 @@ class LoginVm  extends _$LoginVm{
     }
     loaderHandle.close();
   }
-
-
 }

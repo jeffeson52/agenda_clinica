@@ -21,8 +21,8 @@ class AgendaClinicaApp extends StatelessWidget {
         routes: {
           '/': (_) => const SplashPage(),
           '/auth/login/' : (_) => const LoginPage(),
-          '/home/adm/' : (_) => const Text('ADM'),
-          '/home/employee/' : (_) => const Text('Employee'),
+          '/home/adm' : (_) => const Text('ADM'),
+          '/home/employee' : (_) => const Text('Employee'),
           },
         );
       },

@@ -4,7 +4,7 @@ class ClinicaModel {
   final String name;
   final String email;
   final List<String> openingDays;
-  final List<String> openingHours;
+  final List<int> openingHours;
   ClinicaModel({
     required this.id,
     required this.name,
@@ -26,7 +26,7 @@ class ClinicaModel {
       name: name, 
       email: email, 
       openingDays: openingDays.cast<String>(), 
-      openingHours: openingHours.cast<String>()
+      openingHours: openingHours.cast<int>()
       ),
       _ => throw ArgumentError('Invalid Json'),
     };
