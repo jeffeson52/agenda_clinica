@@ -25,7 +25,7 @@ class LoginVm  extends _$LoginVm{
       case Success():
       
         ref.invalidate(getMeProvider);
-        ref.invalidate(getMyClinicaProvider);
+        ref.invalidate(getMyClinicaProvider); 
         
         final userModel = await ref.read(getMeProvider.future);
         switch(userModel) {

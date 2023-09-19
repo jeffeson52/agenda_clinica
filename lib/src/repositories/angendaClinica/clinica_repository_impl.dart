@@ -28,7 +28,7 @@ class ClinicaRepositoryImpl implements ClinicaRepository {
 
       case UserModelEmployee():
         final Response(:data) = await restClient.auth.get(
-          '/clinica/${userModel.agendaClinicaId}'
+          '/clinica/${userModel.clinicaId}'
           );
         return Success(ClinicaModel.fromMap(data)); 
     }
