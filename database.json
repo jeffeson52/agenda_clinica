@@ -15,6 +15,34 @@
                 7,
                 8
             ]
+        },
+        {
+            "id": 6,
+            "name": "Teste",
+            "email": "teste@gmail.com",
+            "password": "123123",
+            "profile": "ADM"
+        },
+        {
+            "id": 7,
+            "name": "teste2",
+            "email": "teste2@gmail.com",
+            "password": "123123",
+            "profile": "ADM"
+        },
+        {
+            "id": 8,
+            "name": "teste3",
+            "email": "teste3@gmail.com",
+            "password": "123123",
+            "profile": "ADM"
+        },
+        {
+            "id": 9,
+            "name": "teste4",
+            "email": "teste4@gmail.com",
+            "password": "123123",
+            "profile": "ADM"
         }
     ],
     "adm_users": [],
@@ -39,6 +67,30 @@
                 20,
                 12,
                 13
+            ]
+        },
+        {
+            "id": 3,
+            "user_id": "9",
+            "name": "clinica 4",
+            "email": "clinica4@gmail.com",
+            "opening_days": [
+                "Seg",
+                "Ter",
+                "Qua",
+                "Qui",
+                "Sex"
+            ],
+            "opening_hours": [
+                8,
+                9,
+                10,
+                11,
+                14,
+                15,
+                16,
+                17,
+                18
             ]
         }
     ],

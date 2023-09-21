@@ -1,6 +1,6 @@
 import 'package:agenda_clinica/src/core/fp/either.dart';
 import 'package:agenda_clinica/src/core/providers/application_providers.dart';
-import 'package:agenda_clinica/src/features/auth/register/user_register_providers.dart';
+import 'package:agenda_clinica/src/features/auth/register/user/user_register_providers.dart';
 import 'package:asyncstate/asyncstate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,7 +30,7 @@ class UserRegisterVm extends _$UserRegisterVm{
       password: password,
     );
     
-    final registerResult = await userRegisterAdmService.execute(userDTO).asyncLoader();
+    final registerResult = await userRegisterAdmService.execute(userDTO);
     switch(registerResult){
       case Success():
       ref.invalidate(getMeProvider);
