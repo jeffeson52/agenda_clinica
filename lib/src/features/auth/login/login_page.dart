@@ -78,7 +78,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             children: [
                               Image.asset(ImageConstants.imageLogo),
                               const SizedBox(
-                                 height: 30,
+                                 height: 20,
                               ),
                               TextFormField(
                                 onTapOutside: (_) => context.unfocus(),
@@ -115,13 +115,13 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 ),
                               ),
                               const SizedBox(
-                                 height: 16,
+                                 height: 15,
                               ),
                               const Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text('Esqueceu a senha?', style: TextStyle(color: ColorsConstants.brow, fontSize: 12),),),
                                 const SizedBox(
-                                   height: 24,
+                                   height: 20,
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(56),),
@@ -135,10 +135,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                   }, child: const Text('ACESSAR'),),
                             ],
                           ),
-                          const Align(
+                          Align(
                             alignment: Alignment.bottomCenter,
-                            child: Text('Criar Conta', 
-                            style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500,),),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed('/auth/register/user');
+                              },
+                              child: const Text('Criar Conta', 
+                              style: TextStyle(fontSize: 16, 
+                              color: Colors.white, 
+                              fontWeight: FontWeight.w500,),),
+                            ),
                           )
                         ],
                       ),
