@@ -1,8 +1,8 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:agenda_clinica/src/core/ui/constants.dart';
 import 'package:agenda_clinica/src/core/ui/helpers/messages.dart';
-import 'package:agenda_clinica/src/features/auth/login/login_page.dart';
 import 'package:agenda_clinica/src/features/splash/splash_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +21,9 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   double get _logoAnimationWidth => 100 * _scale;
   double get _logoAnimationHeight => 120 * _scale;
 
+  var endAnimation = false;
+  Timer? redirectTimer;
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -32,6 +35,20 @@ class _SplashPageState extends ConsumerState<SplashPage> {
     super.initState();
   }
 
+  void _redirect(String routeName) {
+    
+    if(!endAnimation){
+      redirectTimer?.cancel();
+      redirectTimer = Timer(const Duration(milliseconds: 300), () {
+        _redirect(routeName);
+       });
+    }else{
+      redirectTimer?.cancel();
+      Navigator.of(context)
+        .pushNamedAndRemoveUntil(routeName, (route) => false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ref.listen(splashVmProvider, (_, state) {
@@ -39,20 +56,24 @@ class _SplashPageState extends ConsumerState<SplashPage> {
         error: (error, stackTrace) {
           log('Erro ao validar o login', error: error, stackTrace: stackTrace);
           Messages.showError('Erro ao validar o login', context);
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil('/auth/login', (route) => false);
+          _redirect('/auth/login');
+//          Navigator.of(context)
+//              .pushNamedAndRemoveUntil('/auth/login', (route) => false);
         },
         data: (data) {
           switch (data) {
             case SplashState.loggedADM:
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/home/adm', (route) => false);
+            _redirect('/home/adm');
+//              Navigator.of(context)
+//                  .pushNamedAndRemoveUntil('/home/adm', (route) => false);
             case SplashState.loggedEmployee:
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/home/employee', (route) => false);
+            _redirect('/home/employee');
+//              Navigator.of(context)
+//                  .pushNamedAndRemoveUntil('/home/employee', (route) => false);
             case _:
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/home/login', (route) => false);
+            _redirect('/auth/login');
+//              Navigator.of(context)
+//                  .pushNamedAndRemoveUntil('/home/login', (route) => false);
           }
         },
       );
@@ -74,25 +95,28 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             curve: Curves.easeIn,
             opacity: _animationOpacityLogo,
             onEnd: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                PageRouteBuilder(
-                  settings: const RouteSettings(name: '/auth/login'),
-                  pageBuilder: (
-                    context,
-                    animation,
-                    secondaryAnimation,
-                  ) {
-                    return const LoginPage();
-                  },
-                  transitionsBuilder: (_, animation, __, child) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                ),
-                (route) => false,
-              );
+              setState(() {
+                endAnimation = true;
+              });
+//              Navigator.of(context).pushAndRemoveUntil(
+//                PageRouteBuilder(
+//                  settings: const RouteSettings(name: '/auth/login'),
+//                  pageBuilder: (
+//                    context,
+//                    animation,
+//                    secondaryAnimation,
+//                  ) {
+//                    return const LoginPage();
+//                  },
+//                  transitionsBuilder: (_, animation, __, child) {
+//                    return FadeTransition(
+//                      opacity: animation,
+//                      child: child,
+//                    );
+//                  },
+//                ),
+//                (route) => false,
+//              );
             },
             child: AnimatedContainer(
               duration: const Duration(seconds: 1),
