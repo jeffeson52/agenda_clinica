@@ -2,8 +2,9 @@ import 'package:agenda_clinica/src/core/ui/constants.dart';
 import 'package:flutter/material.dart';
 
 class WeekdaysPanel extends StatelessWidget {
+  final List<String>? enableDays;
   final ValueChanged<String> onDayPressed;
-  const WeekdaysPanel({super.key,required this.onDayPressed});
+  const WeekdaysPanel({super.key, required this.onDayPressed, this.enableDays});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class WeekdaysPanel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Selecione os dias da asemana',
+            'Selecione os dias da semana',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
           const SizedBox(
@@ -24,13 +25,34 @@ class WeekdaysPanel extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ButtonDay(label: 'Seg', onDayPressed: onDayPressed,),
-                ButtonDay(label: 'Ter', onDayPressed: onDayPressed,),
-                ButtonDay(label: 'Qua', onDayPressed: onDayPressed,),
-                ButtonDay(label: 'Qui', onDayPressed: onDayPressed,),
-                ButtonDay(label: 'Sex', onDayPressed: onDayPressed,),
-                ButtonDay(label: 'Sab', onDayPressed: onDayPressed,),
-                ButtonDay(label: 'Dom', onDayPressed: onDayPressed,),
+                ButtonDay(
+                    label: 'Seg',
+                    onDayPressed: onDayPressed,
+                    enableDays: enableDays),
+                ButtonDay(
+                    label: 'Ter',
+                    onDayPressed: onDayPressed,
+                    enableDays: enableDays),
+                ButtonDay(
+                    label: 'Qua',
+                    onDayPressed: onDayPressed,
+                    enableDays: enableDays),
+                ButtonDay(
+                    label: 'Qui',
+                    onDayPressed: onDayPressed,
+                    enableDays: enableDays),
+                ButtonDay(
+                    label: 'Sex',
+                    onDayPressed: onDayPressed,
+                    enableDays: enableDays),
+                ButtonDay(
+                    label: 'Sab',
+                    onDayPressed: onDayPressed,
+                    enableDays: enableDays),
+                ButtonDay(
+                    label: 'Dom',
+                    onDayPressed: onDayPressed,
+                    enableDays: enableDays),
               ],
             ),
           )
@@ -41,6 +63,7 @@ class WeekdaysPanel extends StatelessWidget {
 }
 
 class ButtonDay extends StatefulWidget {
+  final List<String>? enableDays;
   final String label;
   final ValueChanged<String> onDayPressed;
 
@@ -48,6 +71,7 @@ class ButtonDay extends StatefulWidget {
     super.key,
     required this.label,
     required this.onDayPressed,
+    this.enableDays,
   });
 
   @override
@@ -55,46 +79,50 @@ class ButtonDay extends StatefulWidget {
 }
 
 class _ButtonDayState extends State<ButtonDay> {
-
-var selected = false;
+  var selected = false;
 
   @override
   Widget build(BuildContext context) {
-
     final textColor = selected ? Colors.white : ColorsConstants.grey;
     var buttonColor = selected ? ColorsConstants.brow : Colors.white;
-    final buttonBorderColor = selected ? ColorsConstants.brow : ColorsConstants.grey;
+    final buttonBorderColor =
+        selected ? ColorsConstants.brow : ColorsConstants.grey;
+
+    final ButtonDay(:enableDays, :label) = widget;
+    final disableDay = enableDays != null && !enableDays.contains(label);
+    if(disableDay){
+      buttonColor = Colors.grey[400]!;
+    }
 
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: (){
-          widget.onDayPressed(widget.label);
+        onTap: disableDay ? null : () {
+          widget.onDayPressed(label);
           setState(() {
             selected = !selected;
           });
         },
-      child: Container(
-        width: 40,
-        height: 56,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: buttonColor,
-          border: Border.all(
-            color: buttonBorderColor,
+        child: Container(
+          width: 40,
+          height: 56,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: buttonColor,
+            border: Border.all(
+              color: buttonBorderColor,
+            ),
           ),
-        ),
-        child: Center(
-          child: Text(
-            widget.label,
-            style: TextStyle(
-                fontSize: 12,
-                color: textColor,
-                fontWeight: FontWeight.w500),
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                  fontSize: 12, color: textColor, fontWeight: FontWeight.w500),
+            ),
           ),
         ),
       ),
-    ),);
+    );
   }
 }

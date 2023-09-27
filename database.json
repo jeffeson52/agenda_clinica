@@ -8,12 +8,16 @@
             "profile": "ADM",
             "work_days": [
                 "Seg",
-                "Qua"
+                "Qua",
+                "Sab"
             ],
             "work_hours": [
-                6,
                 7,
-                8
+                8,
+                9,
+                18,
+                19,
+                20
             ]
         },
         {
@@ -43,6 +47,43 @@
             "email": "teste4@gmail.com",
             "password": "123123",
             "profile": "ADM"
+        },
+        {
+            "id": 10,
+            "name": "Jeffeson Augusto da Silva",
+            "email": "jeffEmployee@gmail.com",
+            "password": "123123",
+            "profile": "EMPLOYEE",
+            "clinica_id": 2,
+            "work_days": [
+                "Seg",
+                "Ter"
+            ],
+            "work_hours": [
+                6,
+                7,
+                8
+            ]
+        },
+        {
+            "id": 11,
+            "name": "colab1",
+            "email": "colab1@gmail.com",
+            "password": "123123",
+            "clinica_id": 2,
+            "profile": "EMPLOYEE",
+            "work_days": [
+                "Qua",
+                "Sab"
+            ],
+            "work_hours": [
+                7,
+                8,
+                9,
+                18,
+                19,
+                20
+            ]
         }
     ],
     "adm_users": [],

@@ -1,7 +1,6 @@
 import 'package:agenda_clinica/src/core/fp/either.dart';
 import 'package:agenda_clinica/src/core/providers/application_providers.dart';
 import 'package:agenda_clinica/src/features/auth/register/user/user_register_providers.dart';
-import 'package:asyncstate/asyncstate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_register_vm.g.dart';

@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:agenda_clinica/src/core/ui/constants.dart';
 
 class HoursPanel extends StatelessWidget {
-
+  final List<int>? enableTimes;
   final int startTime;
   final int endTime;
   final ValueChanged<int> onHourPressed;
 
   const HoursPanel({
     super.key,
+    this.enableTimes,
     required this.startTime,
     required this.endTime,
     required this.onHourPressed,
@@ -34,6 +35,7 @@ class HoursPanel extends StatelessWidget {
           children: [
             for(int i = startTime; i <= endTime; i++)
             TimeButton(
+              enableTimes: enableTimes,
               label: '${i.toString().padLeft(2, '0')}:00',
               value: i,
               onPressed: onHourPressed,
@@ -46,12 +48,14 @@ class HoursPanel extends StatelessWidget {
 }
 
 class TimeButton extends StatefulWidget {
+  final List<int>? enableTimes;
   final String label;
   final int value;
   final ValueChanged<int> onPressed;
 
   const TimeButton({
     super.key,
+    this.enableTimes,
     required this.label,
     required this.value,
     required this.onPressed,
@@ -71,13 +75,21 @@ class _TimeButtonState extends State<TimeButton> {
     final textColor = selected ? Colors.white : ColorsConstants.grey;
     var buttonColor = selected ? ColorsConstants.brow : Colors.white;
     final buttonBorderColor = selected ? ColorsConstants.brow : ColorsConstants.grey;
+
+    final TimeButton(:value, :label, :enableTimes, :onPressed) = widget;
+
+    final disableTime = enableTimes != null && !enableTimes.contains(value);
+
+    if(disableTime) {
+      buttonColor = Colors.grey[400]!;
+    }
     
       return InkWell(
         borderRadius: BorderRadius.circular(8),
-        onTap: (){
+        onTap: disableTime ? null : (){ 
           setState(() {
             selected = !selected;
-            widget.onPressed(widget.value);
+            onPressed(value);
           });
         },
         child: Container(
@@ -92,7 +104,7 @@ class _TimeButtonState extends State<TimeButton> {
           ),
           child: Center(
             child: Text(
-              widget.label,
+              label,
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
