@@ -1,8 +1,10 @@
 import 'package:agenda_clinica/src/agenda_clinica_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+Future <void> main() async {
+  await initializeDateFormatting();
   runApp(const ProviderScope(child: AgendaClinicaApp()));
 }
 
