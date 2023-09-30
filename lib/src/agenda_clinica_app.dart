@@ -7,10 +7,12 @@ import 'package:agenda_clinica/src/features/auth/register/user/user_register_pag
 import 'package:agenda_clinica/src/features/employee/register/employee_register_page.dart';
 import 'package:agenda_clinica/src/features/employee/schedule/employee_schedule_page.dart';
 import 'package:agenda_clinica/src/features/home/adm/home_adm_page.dart';
+import 'package:agenda_clinica/src/features/home/employee/home_employee_page.dart';
 import 'package:agenda_clinica/src/features/schedule/schedule_page.dart';
 import 'package:agenda_clinica/src/features/splash/splash_page.dart';
 import 'package:asyncstate/widget/async_state_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AgendaClinicaApp extends StatelessWidget {
 
@@ -32,11 +34,18 @@ class AgendaClinicaApp extends StatelessWidget {
           '/auth/register/user' : (_) => const UserRegisterPage(),
           '/auth/register/clinica' : (_) => const ClinicaRegisterPage(),
           '/home/adm' : (_) => const HomeAdmPage(),
-          '/home/employee' : (_) => const Text('Employee'),
+          '/home/employee' : (_) => const HomeEmployeePage(),
           '/employee/register' : (_) => const EmployeeRegisterPage(),
           '/employee/schedule' : (_) => const EmployeeSchedulePage(),
           '/shedule': (_) => const SchedulePage(),
           },
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('pt', 'BR')],
+          locale: const Locale('pt', 'BR'),
         );
       },
     );

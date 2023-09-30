@@ -5,6 +5,7 @@ import 'package:agenda_clinica/src/core/exceptions/repository_exception.dart';
 import 'package:agenda_clinica/src/core/fp/either.dart';
 import 'package:agenda_clinica/src/core/fp/nil.dart';
 import 'package:agenda_clinica/src/core/restClient/rest_client.dart';
+import 'package:agenda_clinica/src/model/schedule_model.dart';
 import 'package:dio/dio.dart';
 
 import './schedule_repository.dart';
@@ -37,6 +38,27 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
     } on DioException catch (e, s) {
       log('Erro ao registrar agendamento', error: e, stackTrace: s);
       return Failure(RepositoryException(message: 'Erro ao agendar horário'));
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, List<ScheduleModel>>> findScheduleByDate(
+      ({DateTime date, int userId}) filter) async {
+    try {
+      final Response(:List data) = await restClient.auth.get('/schedules',
+          queryParameters: {
+            'user_id': filter.userId,
+            'date': filter.date.toIso8601String()
+          });
+      final schedules = data.map((s) => ScheduleModel.fromMap(s)).toList();
+      return Success(schedules);
+    } on DioException catch (e, s) {
+      log('Erro ao buscar agendamentos de uma data', error: e, stackTrace: s);
+      return Failure(RepositoryException(
+          message: 'Erro ao buscar angendamentos de uma data'));
+    } on ArgumentError catch (e, s) {
+      log('Json inválido', error: e, stackTrace: s);
+      return Failure(RepositoryException(message: 'Json inválido'));
     }
   }
 }

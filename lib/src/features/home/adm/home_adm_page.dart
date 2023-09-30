@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:agenda_clinica/src/core/providers/application_providers.dart';
 import 'package:agenda_clinica/src/core/ui/clinica_icons.dart';
 import 'package:agenda_clinica/src/core/ui/constants.dart';
 import 'package:agenda_clinica/src/core/ui/widgets/agenda_clinica_loader.dart';
@@ -23,6 +24,7 @@ class HomeAdmPage extends ConsumerWidget {
         backgroundColor: ColorsConstants.brow,
         onPressed: () async {
           await Navigator.of(context).pushNamed('/employee/register');
+          ref.invalidate(getMeProvider);
           ref.invalidate(homeAdmVmProvider);
         },
         child: const CircleAvatar(
