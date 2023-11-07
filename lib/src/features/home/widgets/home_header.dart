@@ -64,7 +64,7 @@ class HomeHeader extends ConsumerWidget {
               ),
               const Expanded(
                 child: Text(
-                  'editar',
+                  '',
                   style: TextStyle(
                     color: ColorsConstants.brow,
                     fontSize: 12,

@@ -3,7 +3,6 @@ import 'package:agenda_clinica/src/core/providers/application_providers.dart';
 import 'package:agenda_clinica/src/features/schedule/schedule_state.dart';
 import 'package:agenda_clinica/src/model/clinica_model.dart';
 import 'package:agenda_clinica/src/model/user_model.dart';
-import 'package:agenda_clinica/src/repositories/schedule/schedule_repository.dart';
 import 'package:asyncstate/class/async_loader_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

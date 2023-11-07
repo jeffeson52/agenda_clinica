@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:agenda_clinica/src/core/providers/application_providers.dart';
 import 'package:agenda_clinica/src/core/ui/constants.dart';
 import 'package:agenda_clinica/src/core/ui/widgets/agenda_clinica_loader.dart';
 import 'package:agenda_clinica/src/features/employee/schedule/appointment_ds.dart';

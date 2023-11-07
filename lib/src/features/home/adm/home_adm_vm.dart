@@ -23,7 +23,7 @@ class HomeAdmVm extends _$HomeAdmVm {
       case Success(value: final employeesData):
         final employees = <UserModel>[];
 
-        if (me case UserModelADM(workDays: _?, workHours: _?)) {//!não esta na documentação, estudar sobre aula 4 as 1:45 adiante
+        if (me case UserModelADM(workDays: _?, workHours: _?)) {
           employees.add(me);
         }
 
@@ -37,5 +37,5 @@ class HomeAdmVm extends _$HomeAdmVm {
   }
 
   Future<void> logout() =>
-      ref.read(logoutProvider.future).asyncLoader(); //!cuidado
+      ref.read(logoutProvider.future).asyncLoader(); 
 }

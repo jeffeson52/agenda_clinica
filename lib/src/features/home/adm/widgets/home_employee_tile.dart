@@ -50,7 +50,7 @@ class HomeEmployeeTile extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 5)
+                        padding: const EdgeInsets.symmetric(horizontal: 15)
                       ),
                       onPressed: () {
                       Navigator.of(context).pushNamed('/shedule', arguments: employee);
@@ -58,7 +58,7 @@ class HomeEmployeeTile extends StatelessWidget {
                       child: const Text('AGENDAR')),
                     OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 5)
+                        padding: const EdgeInsets.symmetric(horizontal: 15)
                       ),
                       onPressed: () {
                         Navigator.of(context).pushNamed('/employee/schedule', arguments: employee);
@@ -66,10 +66,10 @@ class HomeEmployeeTile extends StatelessWidget {
                       }, 
                       child: const Text('VER AGENDA'),
                       ),
-                      const Icon(ClinicaIcons.penEdit, size: 14,
-                      color: ColorsConstants.brow,),
-                      const Icon(ClinicaIcons.trash, size: 14,
-                      color: ColorsConstants.red,)
+//                      const Icon(ClinicaIcons.penEdit, size: 14,
+//                      color: ColorsConstants.brow,),
+//                      const Icon(ClinicaIcons.trash, size: 14,
+//                      color: ColorsConstants.red,)
                   ],
                 ),
               ],
