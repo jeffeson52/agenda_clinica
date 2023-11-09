@@ -15,3 +15,5 @@ rest_client pega o IP e atualizar
 -pub add dio
 
 -dart run build_runner watch -d
+
+-npm install json-server
