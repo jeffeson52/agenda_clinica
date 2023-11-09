@@ -1,0 +1,17 @@
+rest_client pega o IP e atualizar
+
+-pub global activate json_rest_server
+
+-flutter pub add `
+  flutter_riverpod `
+  riverpod_annotation `
+  dev:custom_lint `
+  dev:riverpod_lint `
+  dev:riverpod_generator `
+  dev:build_runner
+
+-dart pub add asyncstate
+
+-pub add dio
+
+-dart run build_runner watch -d
